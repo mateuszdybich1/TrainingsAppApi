@@ -46,6 +46,11 @@ namespace TrainingsAppApi.Services
 
         public List<CourseEntity> GetUsersCourses(string username)
         {
+            if (!_userRepository.UsernameExists(username))
+            {
+                throw new ValidationException("Username does not exists");
+            }
+
             List<CourseEntity> courses = _courseRepository.GetUsersCourses(username);
             return courses;
         }

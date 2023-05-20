@@ -28,7 +28,7 @@ namespace TrainingsAppApi.Models.Entities
 
         
 
-        public List<UserEntity> User { get; private set; }
+        public List<UserEntity> Users { get; private set; }
 
         public CourseEntity(string? image , string courseName, string startDate, string endDate, string startTime, string endTime, string language, string courseLevel, string trainerName, string courseTeacher, List<UserEntity> user)
         {
@@ -86,7 +86,7 @@ namespace TrainingsAppApi.Models.Entities
             Language = language;
             CourseLevel = courseLevel;
             TrainerName = trainerName;
-            User = user;
+            Users = user;
             CourseTeacher = courseTeacher;
         }
         public CourseEntity()

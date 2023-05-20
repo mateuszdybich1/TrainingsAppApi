@@ -19,15 +19,15 @@ namespace TrainingsAppApi
 
         public DbSet<CourseEntity> Courses { get; set; }
 
-        //public DbSet<UsernameEntity> Usernames { get; set; }
+        
 
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseMySql("Server=localhost;Port=3306;Database=TRAININGSAPP;User Id=root;Password=WelcomOnCRC23;", 
-                ServerVersion.AutoDetect("Server=localhost;Port=3306;Database=TRAININGSAPP;User Id=root;Password=WelcomOnCRC23;"));
+            optionsBuilder.UseMySql("Server=localhost;Port=3306;Database=TRAININGSAPP;Users Id=root;Password=WelcomOnCRC23;", 
+                ServerVersion.AutoDetect("Server=localhost;Port=3306;Database=TRAININGSAPP;Users Id=root;Password=WelcomOnCRC23;"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace TrainingsAppApi
 
 
             modelBuilder.Entity<CourseEntity>().HasKey(e => e.Id);
-            modelBuilder.Entity<UserEntity>().HasMany(e => e.Courses).WithMany(e=>e.User);
+            modelBuilder.Entity<UserEntity>().HasMany(e => e.Courses).WithMany(e=>e.Users);
 
             
 
