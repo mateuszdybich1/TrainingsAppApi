@@ -9,6 +9,6 @@ namespace TrainingsAppApi.Repositories
         bool UsernameExists(string username);
         bool EmailExists(string email);
 
-        UserEntity GetUser(string username);
+        string GetUser(string username);
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TrainingsAppApi.Dtos;
 using TrainingsAppApi.Models.Dtos;
+using TrainingsAppApi.Models.Entities;
 using TrainingsAppApi.Services;
 using TrainingsAppApi.Validation.Exceptions;
 
@@ -34,10 +35,34 @@ namespace TrainingsAppApi.Controllers
         }
 
         [HttpGet("getcourses")]
-        public IActionResult GetAllCourses(string username)
-        {           
-            _courseService.GetAllCourses(username);  
-            return Ok();
+        public IActionResult GetAllCourses()
+        {
+            List<CourseEntity> list = _courseService.GetAllCourses();
+            try
+            {
+                list = _courseService.GetAllCourses();
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        
+            return Ok(list);
+        }
+
+        [HttpGet("getuserscourses")]
+        public IActionResult GetUsersCourses(string username)
+        {
+            List<CourseEntity> list = _courseService.GetAllCourses();
+            try
+            {
+                list = _courseService.GetUsersCourses(username);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(list);
         }
 
         [HttpPost("signtocourse")]
@@ -54,6 +79,8 @@ namespace TrainingsAppApi.Controllers
             
             return Ok();
         }
+
+
 
 
 

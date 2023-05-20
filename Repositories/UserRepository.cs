@@ -21,11 +21,11 @@ namespace TrainingsAppApi.Repositories
             return result;
         }
 
-        public UserEntity GetUser(string username)
+        public string GetUser(string username)
         {
             var result = (from currentUsername in _appDbContext.Users
                           where username == currentUsername.Username
-                          select currentUsername).FirstOrDefault<UserEntity>();
+                          select currentUsername.Username).SingleOrDefault<string>();
 
             if(result == null)
             {
