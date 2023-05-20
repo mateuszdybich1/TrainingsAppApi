@@ -6,31 +6,29 @@ namespace TrainingsAppApi.Models.Entities
     {
         public Guid Id { get; set; }
 
-        public string Image { get;  set; }
+        public string Image { get; private set; }
 
-        public string CourseName { get; set; }
+        public string CourseName { get; private set; }
 
-        public string StartDate { get;  set; }
+        public string StartDate { get; private set; }
 
-        public string EndDate { get;  set; }
+        public string EndDate { get; private set; }
 
-        public string StartTime { get;  set; }
+        public string StartTime { get; private set; }
 
-        public string EndTime { get;  set; }
+        public string EndTime { get; private set; }
 
-        public string Language { get; set; }
+        public string Language { get; private set; }
 
-        public string CourseLevel { get; set; }
+        public string CourseLevel { get; private set; }
 
-        public string TrainerName { get; set; }
-
-        public string CourseTeacher { get; private set; }
+        public string TrainerName { get; private set; }
 
         
 
-        public List<UserEntity> Users { get; private set; }
+        public List<UserEntity> User { get; private set; }
 
-        public CourseEntity(string? image , string courseName, string startDate, string endDate, string startTime, string endTime, string language, string courseLevel, string trainerName, string courseTeacher, List<UserEntity> user)
+        public CourseEntity(string? image , string courseName, string startDate, string endDate, string startTime, string endTime, string language, string courseLevel, string trainerName, List<UserEntity> user ) 
         {
             if (string.IsNullOrEmpty(courseName))
             {
@@ -72,11 +70,6 @@ namespace TrainingsAppApi.Models.Entities
                 throw new ArgumentException($"'{nameof(trainerName)}' cannot be null or empty.", nameof(trainerName));
             }
 
-            if (string.IsNullOrWhiteSpace(courseTeacher))
-            {
-                throw new ArgumentException($"'{nameof(courseTeacher)}' cannot be null or whitespace.", nameof(courseTeacher));
-            }
-
             Image = image;
             CourseName = courseName;
             StartDate = startDate;
@@ -86,8 +79,7 @@ namespace TrainingsAppApi.Models.Entities
             Language = language;
             CourseLevel = courseLevel;
             TrainerName = trainerName;
-            Users = user;
-            CourseTeacher = courseTeacher;
+            User = user;
         }
         public CourseEntity()
         {

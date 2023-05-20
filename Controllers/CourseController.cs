@@ -36,19 +36,11 @@ namespace TrainingsAppApi.Controllers
         }
 
 
-        [HttpGet("getcourses")]
-        public IActionResult GetAllCourses()
-        {
-            List<CourseEntity> list = _courseService.GetAllCourses();
-
-            return Ok(list);
-        }
-
-
+       
         [HttpGet("getuserscourses")]
         public IActionResult GetUsersCourses(string username)
         {
-            List<CourseEntity> list = _courseService.GetAllCourses();
+            List<CourseEntity> list = _courseService.GetUsersCourses(username);
             try
             {
                 list = _courseService.GetUsersCourses(username);
@@ -75,8 +67,6 @@ namespace TrainingsAppApi.Controllers
             
             return Ok();
         }
-
-
 
 
 

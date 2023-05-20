@@ -25,13 +25,13 @@ namespace TrainingsAppApi.Repositories
             return result;
         }
 
-        public List<CourseEntity> GetAllCourses()
+        public List<CourseEntity> GetAllCourses(string username)
         {
-            
-            var result = (from currentCourse in _appDbContext.Courses
-                          
-                          select currentCourse).ToList<CourseEntity>();
-            return result;
+            throw new NotImplementedException();
+            //var result = (from currentCourse in _appDbContext.Courses
+            //              where !currentCourse.User
+            //              select currentCourse).ToList<CourseEntity>();
+            //return result;
         }
 
         public List<CourseEntity> GetUsersCourses(string username)
