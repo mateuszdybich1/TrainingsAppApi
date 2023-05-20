@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrainingsAppApi.Migrations
 {
-    public partial class AddUser : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,11 +76,11 @@ namespace TrainingsAppApi.Migrations
                 columns: table => new
                 {
                     CoursesId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UsersId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseEntityUserEntity", x => new { x.CoursesId, x.UsersId });
+                    table.PrimaryKey("PK_CourseEntityUserEntity", x => new { x.CoursesId, x.UserId });
                     table.ForeignKey(
                         name: "FK_CourseEntityUserEntity_Courses_CoursesId",
                         column: x => x.CoursesId,
@@ -88,8 +88,8 @@ namespace TrainingsAppApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseEntityUserEntity_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_CourseEntityUserEntity_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -97,9 +97,9 @@ namespace TrainingsAppApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseEntityUserEntity_UsersId",
+                name: "IX_CourseEntityUserEntity_UserId",
                 table: "CourseEntityUserEntity",
-                column: "UsersId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

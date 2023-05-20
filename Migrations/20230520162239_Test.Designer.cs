@@ -11,8 +11,8 @@ using TrainingsAppApi;
 namespace TrainingsAppApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230520014443_AddUser")]
-    partial class AddUser
+    [Migration("20230520162239_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,12 +26,12 @@ namespace TrainingsAppApi.Migrations
                     b.Property<Guid>("CoursesId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("UsersId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.HasKey("CoursesId", "UsersId");
+                    b.HasKey("CoursesId", "UserId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("CourseEntityUserEntity");
                 });
@@ -139,7 +139,7 @@ namespace TrainingsAppApi.Migrations
 
                     b.HasOne("TrainingsAppApi.Entities.UserEntity", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

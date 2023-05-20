@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using TrainingsAppApi.Entities;
+using TrainingsAppApi.Validation.Exceptions;
 
 namespace TrainingsAppApi.Repositories
 {
@@ -14,9 +15,22 @@ namespace TrainingsAppApi.Repositories
         public bool EmailExists(string email)
         {
             var result = (from currentEmail in _appDbContext.Users
-                          where email == currentEmail.Username
+                          where email == currentEmail.Email
                           select currentEmail).Any();
 
+            return result;
+        }
+
+        public UserEntity GetUser(string username)
+        {
+            var result = (from currentUsername in _appDbContext.Users
+                          where username == currentUsername.Username
+                          select currentUsername).FirstOrDefault<UserEntity>();
+
+            if(result == null)
+            {
+                throw new ValidationException("Username does not exists");
+            }
             return result;
         }
 

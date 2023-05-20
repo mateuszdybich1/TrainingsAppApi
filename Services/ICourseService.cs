@@ -5,8 +5,9 @@ namespace TrainingsAppApi.Services
 {
     public interface ICourseService
     {
-        List<CourseEntity> GetAllCourses();
+        List<CourseEntity> GetAllCourses(string username);
 
+        List<CourseEntity> GetUsersCourses(string username);
         void SignToCourse(string courseName,string username);
 
         void AddCourse(CourseDto dto);

@@ -19,6 +19,8 @@ namespace TrainingsAppApi
 
         public DbSet<CourseEntity> Courses { get; set; }
 
+        //public DbSet<UsernameEntity> Usernames { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -43,7 +45,9 @@ namespace TrainingsAppApi
 
 
             modelBuilder.Entity<CourseEntity>().HasKey(e => e.Id);
-            modelBuilder.Entity<UserEntity>().HasMany(e => e.Courses).WithMany(e => e.Users);
+            modelBuilder.Entity<UserEntity>().HasMany(e => e.Courses).WithMany(e=>e.User);
+
+            
 
 
         }

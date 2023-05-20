@@ -24,12 +24,12 @@ namespace TrainingsAppApi.Migrations
                     b.Property<Guid>("CoursesId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("UsersId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.HasKey("CoursesId", "UsersId");
+                    b.HasKey("CoursesId", "UserId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("CourseEntityUserEntity");
                 });
@@ -137,7 +137,7 @@ namespace TrainingsAppApi.Migrations
 
                     b.HasOne("TrainingsAppApi.Entities.UserEntity", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

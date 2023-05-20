@@ -7,7 +7,7 @@ using TrainingsAppApi.Validation.Exceptions;
 namespace TrainingsAppApi.Controllers
 {
     [ApiController]
-    [Route("JDD")]
+    [Route("course")]
     public class CourseController : ControllerBase
     {
 
@@ -19,23 +19,43 @@ namespace TrainingsAppApi.Controllers
             _courseService = courseService;
         }
 
-        [HttpGet("getcourses")]
-        public IActionResult GetCourses()
+        [HttpPost("addcourse")]
+        public IActionResult AddCourse(CourseDto course)
         {
+            try
+            {
+                _courseService.AddCourse(course);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
 
-            _courseService.GetAllCourses();
+        [HttpGet("getcourses")]
+        public IActionResult GetAllCourses(string username)
+        {           
+            _courseService.GetAllCourses(username);  
+            return Ok();
+        }
+
+        [HttpPost("signtocourse")]
+        public IActionResult SignToCourse(string courseName, string username)
+        {
+            try
+            {
+                _courseService.SignToCourse(courseName, username);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             
             return Ok();
         }
 
-        [HttpGet("getcourses")]
-        public IActionResult SignToCourse(string username)
-        {
 
-            _courseService.SignToCourse(username);
-
-            return Ok();
-        }
 
 
     }

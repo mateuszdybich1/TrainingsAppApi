@@ -47,5 +47,9 @@ namespace TrainingsAppApi.Models.Dtos
 
         [Required(ErrorMessage = "Please enter course trainer name")]
         public string TrainerName { get; set;}
+
+
+        [Required(ErrorMessage = "Please enter current user username")]
+        public string CurrentUserUsername { get; set; }
     }
 }

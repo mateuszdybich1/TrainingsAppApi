@@ -24,9 +24,11 @@ namespace TrainingsAppApi.Models.Entities
 
         public string TrainerName { get; private set; }
 
-        public string Users { get; set; }
+        
 
-        public CourseEntity(string? image , string courseName, string startDate, string endDate, string startTime, string endTime, string language, string courseLevel, string trainerName, List<UserEntity> users ) 
+        public List<UserEntity> User { get; private set; }
+
+        public CourseEntity(string? image , string courseName, string startDate, string endDate, string startTime, string endTime, string language, string courseLevel, string trainerName, List<UserEntity> user ) 
         {
             if (string.IsNullOrEmpty(courseName))
             {
@@ -77,7 +79,7 @@ namespace TrainingsAppApi.Models.Entities
             Language = language;
             CourseLevel = courseLevel;
             TrainerName = trainerName;
-            Users = users;
+            User = user;
         }
         public CourseEntity()
         {

@@ -1,4 +1,5 @@
-﻿using TrainingsAppApi.Models.Dtos;
+﻿using TrainingsAppApi.Entities;
+using TrainingsAppApi.Models.Dtos;
 using TrainingsAppApi.Models.Entities;
 using TrainingsAppApi.Repositories;
 using TrainingsAppApi.Validation;
@@ -15,9 +16,9 @@ namespace TrainingsAppApi.Services
             _courseRepository = courseRepository;
             _userRepository = userRepository;
         }
-        public List<CourseEntity> GetAllCourses()
+        public List<CourseEntity> GetAllCourses(string username)
         {
-            List<CourseEntity> courses = _courseRepository.GetAllCourses();
+            List<CourseEntity> courses = _courseRepository.GetAllCourses(username);
             return courses;
         }
 
@@ -27,8 +28,11 @@ namespace TrainingsAppApi.Services
             {
                 throw new ValidationException(String.Format("Course name already exists"));
             }
+            List<UserEntity> list = new List<UserEntity> { _userRepository.GetUser(dto.CurrentUserUsername) };
+            
+            CourseEntity course = new (dto.Image,dto.CourseName,dto.StartDate,dto.EndDate,dto.StartTime,dto.EndDate,dto.Language,dto.CourseLevel,dto.TrainerName, list);
 
-            CourseEntity course = new (dto.Image,dto.CourseName,dto.StartDate,dto.EndDate,dto.StartTime,dto.EndDate,dto.Language,dto.CourseLevel,dto.TrainerName,);
+            _courseRepository.AddCourse(course);
         }
 
         public void SignToCourse(string courseName, string username)
@@ -39,6 +43,11 @@ namespace TrainingsAppApi.Services
 
 
             _courseRepository.SignToCourse(courseName, username);
+        }
+
+        public List<CourseEntity> GetUsersCourses(string username)
+        {
+            throw new NotImplementedException();
         }
     }
 }
