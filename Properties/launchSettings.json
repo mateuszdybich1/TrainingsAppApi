@@ -1,0 +1,16 @@
+﻿{
+
+  "profiles": {
+    "TrainingsAppApi": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:52000/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+
+    }
+  }
+  }
