@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrainingsAppApi.Migrations
 {
-    public partial class Test : Migration
+    public partial class TEST : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,6 +34,8 @@ namespace TrainingsAppApi.Migrations
                     CourseLevel = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TrainerName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CourseTeacher = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -76,11 +78,11 @@ namespace TrainingsAppApi.Migrations
                 columns: table => new
                 {
                     CoursesId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    UsersId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseEntityUserEntity", x => new { x.CoursesId, x.UserId });
+                    table.PrimaryKey("PK_CourseEntityUserEntity", x => new { x.CoursesId, x.UsersId });
                     table.ForeignKey(
                         name: "FK_CourseEntityUserEntity_Courses_CoursesId",
                         column: x => x.CoursesId,
@@ -88,8 +90,8 @@ namespace TrainingsAppApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseEntityUserEntity_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_CourseEntityUserEntity_Users_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -97,9 +99,9 @@ namespace TrainingsAppApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseEntityUserEntity_UserId",
+                name: "IX_CourseEntityUserEntity_UsersId",
                 table: "CourseEntityUserEntity",
-                column: "UserId");
+                column: "UsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

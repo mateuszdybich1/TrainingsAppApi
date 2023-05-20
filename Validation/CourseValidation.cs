@@ -13,6 +13,18 @@ namespace TrainingsAppApi.Validation
             _userRepository = userRepository;
         }
 
+        public void CanAddCourse(string courseName, string username)
+        {
+            if (_courseRepository.CourseExists(courseName))
+            {
+                throw new ValidationException(String.Format("Course name already exists"));
+            }
+            if (!_userRepository.UsernameExists(username))
+            {
+                throw new ValidationException(String.Format("Username do not exists"));
+            }
+        }
+
         public void CanSignToCourse(string courseName, string username)
         {
             if (!_courseRepository.CourseExists(courseName))
@@ -23,6 +35,15 @@ namespace TrainingsAppApi.Validation
             {
                 throw new ValidationException(String.Format("Username do not exists"));
             }
+        }
+
+        public void CanGetCourses( string username)
+        {
+            if (!_courseRepository.CourseExists(username))
+            {
+                throw new ValidationException(String.Format("Username do not exists"));
+            }
+           
         }
     }
 }

@@ -12,14 +12,13 @@ namespace TrainingsAppApi.Controllers
     public class CourseController : ControllerBase
     {
 
-        private readonly ICourseService _courseService;
 
+        private readonly ICourseService _courseService;
 
         public CourseController(ICourseService courseService)
         {
             _courseService = courseService;
         }
-
 
         [HttpPost("addcourse")]
         public IActionResult AddCourse(CourseDto course)
@@ -32,11 +31,20 @@ namespace TrainingsAppApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+            
             return Ok();
         }
 
-
+        [HttpGet("getcourses")]
+        public IActionResult GetAllCourses()
+        {
+            List<CourseEntity> list = _courseService.GetAllCourses();
+            
        
+            return Ok(list);
+        }
+
+
         [HttpGet("getuserscourses")]
         public IActionResult GetUsersCourses(string username)
         {
@@ -49,6 +57,7 @@ namespace TrainingsAppApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+            
             return Ok(list);
         }
 

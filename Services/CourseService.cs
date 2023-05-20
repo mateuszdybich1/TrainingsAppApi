@@ -16,21 +16,17 @@ namespace TrainingsAppApi.Services
             _courseRepository = courseRepository;
             _userRepository = userRepository;
         }
-        public List<CourseEntity> GetAllCourses(string username)
-        {
-            List<CourseEntity> courses = _courseRepository.GetAllCourses(username);
-            return courses;
-        }
+        
 
         public void AddCourse(CourseDto dto)
         {
-            if(_courseRepository.CourseExists(dto.CourseName))
-            {
-                throw new ValidationException(String.Format("Course name already exists"));
-            }
-            List<UserEntity> list = new List<UserEntity> { _userRepository.GetUser(dto.CurrentUserUsername) };
+            CourseValidation validation = new  CourseValidation(_courseRepository,_userRepository);
+            validation.CanAddCourse(dto.CourseName, dto.CurrentUserUsername);
+
+            string teacher = dto.CurrentUserUsername;
+            List<UserEntity> list = new List<UserEntity> ();
             
-            CourseEntity course = new (dto.Image,dto.CourseName,dto.StartDate,dto.EndDate,dto.StartTime,dto.EndDate,dto.Language,dto.CourseLevel,dto.TrainerName, list);
+            CourseEntity course = new (dto.Image,dto.CourseName,dto.StartDate,dto.EndDate,dto.StartTime,dto.EndDate,dto.Language,dto.CourseLevel,dto.TrainerName,teacher ,list);
 
             _courseRepository.AddCourse(course);
         }
@@ -47,7 +43,18 @@ namespace TrainingsAppApi.Services
 
         public List<CourseEntity> GetUsersCourses(string username)
         {
-            throw new NotImplementedException();
+            CourseValidation courseValidation = new CourseValidation (_courseRepository, _userRepository);
+            courseValidation.CanGetCourses(username);
+            
+            List<CourseEntity> courses = _courseRepository.GetUsersCourses(username);
+            return courses;
+        }
+
+        public List<CourseEntity> GetAllCourses()
+        {
+            
+            List<CourseEntity> courses = _courseRepository.GetAllCourses();
+            return courses;
         }
     }
 }

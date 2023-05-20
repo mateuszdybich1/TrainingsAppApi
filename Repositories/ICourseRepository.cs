@@ -5,7 +5,7 @@ namespace TrainingsAppApi.Repositories
 {
     public interface ICourseRepository
     {
-        List<CourseEntity> GetAllCourses(string username);
+        List<CourseEntity> GetAllCourses();
         List<CourseEntity> GetUsersCourses(string username);
         void SignToCourse(string courseName,string username);
         bool CourseExists(string courseName);
