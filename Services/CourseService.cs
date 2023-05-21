@@ -24,11 +24,32 @@ namespace TrainingsAppApi.Services
             validation.CanAddCourse(dto.CourseName, dto.CurrentUserUsername);
 
             string teacher = dto.CurrentUserUsername;
-            List<UserEntity> list = new List<UserEntity> ();
-            
-            CourseEntity course = new (dto.Image,dto.CourseName,dto.StartDate,dto.EndDate,dto.StartTime,dto.EndDate,dto.Language,dto.CourseLevel,dto.TrainerName,teacher ,list);
+            if(!_userRepository.UsernameExists(teacher))
+            {
+                throw new ValidationException("Invalid username");
+            }
 
+            List<UserEntity> list = new List<UserEntity>
+            {
+                _userRepository.GetUser(teacher)
+            };
+
+            CourseEntity course = new CourseEntity();
+            course.Image= dto.Image;
+            course.CourseName = dto.CourseName;
+            course.StartDate = dto.StartDate;
+            course.EndDate = dto.EndDate;
+            course.StartTime = dto.StartTime;
+            course.EndTime = dto.EndTime;
+            course.Language = dto.Language;
+            course.CourseLevel = dto.CourseLevel;
+            course.TrainerName = dto.TrainerName;
+            course.CourseTeacher = teacher;
+            course.Users = list;
             _courseRepository.AddCourse(course);
+            //CourseEntity course = new (dto.Image,dto.CourseName,dto.StartDate,dto.EndDate,dto.StartTime,dto.EndDate,dto.Language,dto.CourseLevel,dto.TrainerName,teacher ,list);
+
+
         }
 
         public void SignToCourse(string courseName, string username)
