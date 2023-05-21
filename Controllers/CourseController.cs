@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using TrainingsAppApi.Dtos;
 using TrainingsAppApi.Models.Dtos;
 using TrainingsAppApi.Models.Entities;
@@ -48,17 +49,17 @@ namespace TrainingsAppApi.Controllers
         [HttpGet("getuserscourses")]
         public IActionResult GetUsersCourses(string username)
         {
-            List<CourseEntity> list = _courseService.GetUsersCourses(username);
+            
             try
             {
-                list = _courseService.GetUsersCourses(username);
+                return Ok(_courseService.GetUsersCourses(username));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
+
             
-            return Ok(list);
         }
 
 

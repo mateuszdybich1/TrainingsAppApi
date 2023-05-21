@@ -11,8 +11,8 @@ using TrainingsAppApi;
 namespace TrainingsAppApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230521084059_TEST")]
-    partial class TEST
+    [Migration("20230521192603_CoursesAndUsers")]
+    partial class CoursesAndUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

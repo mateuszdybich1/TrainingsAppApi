@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrainingsAppApi.Migrations
 {
-    public partial class TEST : Migration
+    public partial class CoursesAndUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

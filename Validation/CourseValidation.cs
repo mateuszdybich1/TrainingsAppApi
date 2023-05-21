@@ -39,7 +39,7 @@ namespace TrainingsAppApi.Validation
 
         public void CanGetCourses( string username)
         {
-            if (!_courseRepository.CourseExists(username))
+            if (!_userRepository.UsernameExists(username))
             {
                 throw new ValidationException(String.Format("Username do not exists"));
             }

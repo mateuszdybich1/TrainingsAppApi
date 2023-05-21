@@ -1,8 +1,12 @@
-﻿using MySqlX.XDevAPI.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using NuGet.Protocol.Core.Types;
+using System.Xml.Linq;
+using System;
 using TrainingsAppApi.Entities;
 using TrainingsAppApi.Models.Entities;
 using TrainingsAppApi.Validation.Exceptions;
+using System.Linq;
 
 namespace TrainingsAppApi.Repositories
 {
@@ -38,55 +42,48 @@ namespace TrainingsAppApi.Repositories
 
         public List<CourseEntity> GetUsersCourses(string username)
         {
+         
+           var user = _appDbContext.Users.Where(c => c.Username == username).Select(c=>c.Courses).FirstOrDefault();
 
-            var courses = (from course in _appDbContext.Courses
-                           join user in _appDbContext.Users
-                           on course.Id equals user.Id
-                           where user.Username == username
-                           select course).ToList<CourseEntity>();
 
-            return courses;
+            if (user != null)
+            {
+
+                if (user != null && user.Count == 0)
+                {
+                    throw new ValidationException("User do not have courses");
+                }
+                return user;
+            }
+            else
+            {
+                throw new ValidationException("UNEXPECTED ERROR");
+            }
+   
         }
 
         public void SignToCourse(string courseName, string username)
         {
-            var course = (from currentCourse in _appDbContext.Courses
-                          where courseName == currentCourse.CourseName
-                          select currentCourse).FirstOrDefault<CourseEntity>();
 
-            var user = (from currentUser in _appDbContext.Users
-                               where username == currentUser.Username
-                          select currentUser).FirstOrDefault<UserEntity>();
 
-            if (course != null && user != null)
+            var course = _appDbContext.Courses.Include(c => c.Users).FirstOrDefault(c => c.CourseName == courseName);
             
-                if(course.Users == null)
+
+            var user = _appDbContext.Users.Include(c => c.Courses).FirstOrDefault(c=>c.Username == username);
+
+            if (course!=null)
+            {
+
+                if (course.Users.Any())
                 {
-                    UserEntity userEntity = user;
-                    course.Users = new List<UserEntity> ();
-                    course.Users.Add(userEntity);
-
-                    CourseEntity courseEntity = course;
-                    user.Courses = new List<CourseEntity>();
-                    user.Courses.Add(courseEntity);
-
-                    _appDbContext.Update(course.Users);
-                    _appDbContext.Update(user.Courses);
+                    throw new ValidationException("User already signed to course");
                 }
-                else
-                {
-                    bool isUserAssigned = course.Users.Any(u => u.Username == username);
-
-                    if (!isUserAssigned)
-                    {
-                        user.Courses.Add(course);
-                        course.Users.Add(user);
-                        _appDbContext.Update(course.Users);
-                        _appDbContext.Update(user.Courses);
-                    }
-                }
-                
+                course.Users.Add(user);
+                _appDbContext.SaveChanges();
             }
+
+         
         }
+     }
 }
 
