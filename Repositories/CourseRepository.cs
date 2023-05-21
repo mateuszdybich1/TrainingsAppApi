@@ -43,7 +43,7 @@ namespace TrainingsAppApi.Repositories
         public List<CourseEntity> GetUsersCourses(string username)
         {
          
-           var user = _appDbContext.Users.Where(c => c.Username == username).Select(c=>c.Courses).FirstOrDefault();
+           var user = _appDbContext.Users.Where(c => c.Username == username).SelectMany(c=>c.Courses).ToList();
 
 
             if (user != null)
@@ -51,7 +51,7 @@ namespace TrainingsAppApi.Repositories
 
                 if (user != null && user.Count == 0)
                 {
-                    throw new ValidationException("User do not have courses");
+                    throw new ValidationException("You do not have any courses");
                 }
                 return user;
             }
@@ -76,7 +76,7 @@ namespace TrainingsAppApi.Repositories
 
                 if (course.Users.Any())
                 {
-                    throw new ValidationException("User already signed to course");
+                    throw new ValidationException("You are already signed to this course");
                 }
                 course.Users.Add(user);
                 _appDbContext.SaveChanges();
