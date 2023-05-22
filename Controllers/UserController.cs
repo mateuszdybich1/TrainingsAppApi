@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TrainingsAppApi.Dtos;
+using TrainingsAppApi.Models.Dtos;
 using TrainingsAppApi.Services;
 using TrainingsAppApi.Validation.Exceptions;
 
@@ -33,6 +34,18 @@ namespace TrainingsAppApi.Controllers
             return Ok();
         }
 
-        
+        [HttpPost("login")]
+        public IActionResult Login(UserLoginDto dto)
+        {
+            try
+            {
+                return Ok(_userService.LoginUser(dto));
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
     }
 }

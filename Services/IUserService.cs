@@ -7,6 +7,6 @@ namespace TrainingsAppApi.Services
     {
         void RegisterUser(UserRegisterDto dto);
 
-        void LoginUser(UserLoginDto dto);
+        string LoginUser(UserLoginDto dto);
     }
 }

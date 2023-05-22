@@ -15,9 +15,12 @@ namespace TrainingsAppApi.Services
             _userRepository = userRepository;
         }
 
-        public void LoginUser(UserLoginDto dto)
+        public string LoginUser(UserLoginDto dto)
         {
-            throw new NotImplementedException();
+            UserValidation userValidation = new UserValidation(_userRepository);
+            userValidation.LoginEmail(dto.Email);
+
+            return _userRepository.Login(dto.Email, dto.Password);
         }
 
         public void RegisterUser(UserRegisterDto dto)
@@ -25,7 +28,7 @@ namespace TrainingsAppApi.Services
 
             UserValidation userValidation = new UserValidation(_userRepository);
             userValidation.ValidateUsername(dto.Username);
-            userValidation.ValidateEmail(dto.Email);
+            userValidation.RegisterEmail(dto.Email);
 
             List<CourseEntity> courses = new List<CourseEntity>();
 
