@@ -48,20 +48,7 @@ namespace TrainingsAppApi.Entities
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or whitespace.", nameof(password));
             }
 
-            if (string.IsNullOrWhiteSpace(country))
-            {
-                throw new ArgumentException($"'{nameof(country)}' cannot be null or whitespace.", nameof(country));
-            }
-
-            if (string.IsNullOrWhiteSpace(city))
-            {
-                throw new ArgumentException($"'{nameof(city)}' cannot be null or whitespace.", nameof(city));
-            }
-
-            if (string.IsNullOrWhiteSpace(street))
-            {
-                throw new ArgumentException($"'{nameof(street)}' cannot be null or whitespace.", nameof(street));
-            }
+            
 
             Username = username;
             FirstName = firstname;
