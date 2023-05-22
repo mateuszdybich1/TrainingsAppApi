@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using TrainingsAppApi.Entities;
+using TrainingsAppApi.Models.Entities;
 using TrainingsAppApi.Validation.Exceptions;
 
 namespace TrainingsAppApi.Repositories
@@ -34,13 +35,15 @@ namespace TrainingsAppApi.Repositories
             return result;
         }
 
-        public string Login(string email, string password)
+        public UserLoginEntity Login(string email, string password)
         {
             var user = _appDbContext.Users.Where(c => c.Email.ToLower() == email.ToLower() && c.Password == password).FirstOrDefault();
 
             if (user != null)
             {
-                return user.Username;
+                UserLoginEntity userLoginEntity = new UserLoginEntity(user.Username,user.IsTeacher);
+                
+                return userLoginEntity;
             }
             else
             {

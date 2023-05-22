@@ -56,8 +56,9 @@ namespace TrainingsAppApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsTeacher")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("IsTeacher")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
                         .IsRequired()
