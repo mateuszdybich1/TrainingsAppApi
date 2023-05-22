@@ -20,6 +20,8 @@ namespace TrainingsAppApi.Models.Entities
 
         public string Language { get; set; }
 
+        public string Location { get; set; }
+
         public string CourseLevel { get; set; }
 
         public string TrainerName { get; set; }

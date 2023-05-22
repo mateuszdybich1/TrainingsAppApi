@@ -31,6 +31,8 @@ namespace TrainingsAppApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Language = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Location = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CourseLevel = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TrainerName = table.Column<string>(type: "longtext", nullable: false)

@@ -114,6 +114,10 @@ namespace TrainingsAppApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("StartDate")
                         .IsRequired()
                         .HasColumnType("longtext");

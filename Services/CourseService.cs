@@ -36,6 +36,7 @@ namespace TrainingsAppApi.Services
             course.StartTime = dto.StartTime;
             course.EndTime = dto.EndTime;
             course.Language = dto.Language;
+            course.Location = dto.Location;
             course.CourseLevel = dto.CourseLevel;
             course.TrainerName = dto.TrainerName;
             course.CourseTeacher = teacher;

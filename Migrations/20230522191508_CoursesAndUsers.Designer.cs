@@ -11,7 +11,7 @@ using TrainingsAppApi;
 namespace TrainingsAppApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230522000736_CoursesAndUsers")]
+    [Migration("20230522191508_CoursesAndUsers")]
     partial class CoursesAndUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,6 +113,10 @@ namespace TrainingsAppApi.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("longtext");
 
