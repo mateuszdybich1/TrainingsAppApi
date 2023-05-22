@@ -11,7 +11,7 @@ namespace TrainingsAppApi.Entities
     public string LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    public bool IsTeacher { get; set; }
+    public string IsTeacher { get; set; }
 
     public string Country { get; set; }
     public string City { get; set; }
@@ -21,7 +21,7 @@ namespace TrainingsAppApi.Entities
 
     public UserEntity(Guid id, string username, string firstname,
             string lastname, string email, string password,
-            bool isteacher, string country, string city, string street, List<CourseEntity> courses )
+            string isteacher, string country, string city, string street, List<CourseEntity> courses )
         {
             if (string.IsNullOrWhiteSpace(username))
             {

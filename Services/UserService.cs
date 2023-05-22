@@ -15,7 +15,7 @@ namespace TrainingsAppApi.Services
             _userRepository = userRepository;
         }
 
-        public string LoginUser(UserLoginDto dto)
+        public UserLoginEntity LoginUser(UserLoginDto dto)
         {
             UserValidation userValidation = new UserValidation(_userRepository);
             userValidation.LoginEmail(dto.Email);

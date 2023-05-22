@@ -27,7 +27,7 @@ namespace TrainingsAppApi.Dtos
         public string? Password { get; set; }
 
         [Required(ErrorMessage = "True or false")]
-        public bool IsTeacher { get; set; }
+        public string IsTeacher { get; set; }
 
         public string? Country { get; set; }
         public string? City { get; set; }

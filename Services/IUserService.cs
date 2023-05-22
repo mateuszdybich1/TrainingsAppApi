@@ -1,5 +1,6 @@
 ﻿using TrainingsAppApi.Dtos;
 using TrainingsAppApi.Models.Dtos;
+using TrainingsAppApi.Models.Entities;
 
 namespace TrainingsAppApi.Services
 {
@@ -7,6 +8,6 @@ namespace TrainingsAppApi.Services
     {
         void RegisterUser(UserRegisterDto dto);
 
-        string LoginUser(UserLoginDto dto);
+        UserLoginEntity LoginUser(UserLoginDto dto);
     }
 }

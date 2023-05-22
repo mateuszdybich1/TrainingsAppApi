@@ -61,7 +61,8 @@ namespace TrainingsAppApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsTeacher = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsTeacher = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Country = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     City = table.Column<string>(type: "longtext", nullable: false)
