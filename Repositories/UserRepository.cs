@@ -15,7 +15,7 @@ namespace TrainingsAppApi.Repositories
         public bool EmailExists(string email)
         {
             var result = (from currentEmail in _appDbContext.Users
-                          where email == currentEmail.Email
+                          where email.ToLower() == currentEmail.Email.ToLower()
                           select currentEmail).Any();
 
             return result;
@@ -34,9 +34,18 @@ namespace TrainingsAppApi.Repositories
             return result;
         }
 
-        public void Login(string username, string password)
+        public string Login(string email, string password)
         {
-            throw new NotImplementedException();
+            var user = _appDbContext.Users.Where(c => c.Email.ToLower() == email.ToLower() && c.Password == password).FirstOrDefault();
+
+            if (user != null)
+            {
+                return user.Username;
+            }
+            else
+            {
+                throw new ValidationException("Wrong Password");
+            }
         }
 
         public void Register(UserEntity entity)

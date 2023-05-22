@@ -20,7 +20,15 @@ namespace TrainingsAppApi.Validation
             }
         }
 
-        public void ValidateEmail(string email)
+        public void LoginEmail(string email)
+        {
+            if (!_userRepository.EmailExists(email))
+            {
+                throw new ValidationException(String.Format("Email: {0} does not exists. Please sign up", email));
+            }
+        }
+
+        public void RegisterEmail(string email)
         {
             if (_userRepository.EmailExists(email))
             {
