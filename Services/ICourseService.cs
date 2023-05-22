@@ -7,7 +7,7 @@ namespace TrainingsAppApi.Services
     {
         List<CourseEntity> GetAllCourses();
 
-        List<CourseEntity> GetUsersCourses(string username);
+        List<CourseEntity> GetUsersCourses(UsernameDto dto);
         void SignToCourse(string courseName,string username);
 
         void AddCourse(CourseDto dto);

@@ -57,12 +57,12 @@ namespace TrainingsAppApi.Services
             _courseRepository.SignToCourse(courseName, username);
         }
 
-        public List<CourseEntity> GetUsersCourses(string username)
+        public List<CourseEntity> GetUsersCourses(UsernameDto dto)
         {
             CourseValidation courseValidation = new CourseValidation (_courseRepository, _userRepository);
-            courseValidation.CanGetCourses(username);
+            courseValidation.CanGetCourses(dto.username);
             
-            List<CourseEntity> courses = _courseRepository.GetUsersCourses(username);
+            List<CourseEntity> courses = _courseRepository.GetUsersCourses(dto.username);
             return courses;
         }
 
