@@ -76,12 +76,17 @@ namespace TrainingsAppApi.Services
             return courses;
         }
 
-        public List<CourseEntity> GetAllCourses(UsernameDto dto)
+        public List<CourseEntity> GetSignToCourses(UsernameDto dto)
         {
             CourseValidation courseValidation = new CourseValidation(_courseRepository, _userRepository);
             courseValidation.CanGetCourses(dto.username);
-            List<CourseEntity> courses = _courseRepository.GetAllCourses(dto.username);
+            List<CourseEntity> courses = _courseRepository.GetSignToCourses(dto.username);
             return courses;
+        }
+
+        public List<CourseEntity> GetAllCourses()
+        {
+            return _courseRepository.GetAllCourses();
         }
     }
 }

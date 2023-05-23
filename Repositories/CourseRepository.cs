@@ -33,7 +33,13 @@ namespace TrainingsAppApi.Repositories
             return result;
         }
 
-        public List<CourseEntity> GetAllCourses(string username)
+        public List<CourseEntity> GetAllCourses()
+        {
+            var result = _appDbContext.Courses.ToList();
+            return result;
+        }
+
+        public List<CourseEntity> GetSignToCourses(string username)
         {
             var user = _appDbContext.Users.FirstOrDefault(c => c.Username == username);
             var courseEntity = _appDbContext.Courses.Where(e=>!e.Users.Contains(user)).ToList();

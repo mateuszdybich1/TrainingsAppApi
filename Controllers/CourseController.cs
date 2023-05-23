@@ -37,16 +37,22 @@ namespace TrainingsAppApi.Controllers
         }
 
         [HttpPost("getcourses")]
-        public IActionResult GetAllCourses(UsernameDto dto)
+        public IActionResult SignToCourses(UsernameDto dto)
         {
             try
             {
-                return Ok(_courseService.GetAllCourses(dto));
+                return Ok(_courseService.GetSignToCourses(dto));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("getallcourses")]
+        public IActionResult GetAllCourses()
+        {
+            return Ok(_courseService.GetAllCourses());
         }
 
 
