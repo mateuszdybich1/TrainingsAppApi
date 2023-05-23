@@ -2,13 +2,12 @@
 {
     public class UserLoginEntity
     {
-        string Username { get; set; }
-        string IsTeacher { get; set; }
+        public string Username { get; set; }
+        public string IsTeacher { get; set; }
 
-        public UserLoginEntity(string username, string isTeacher)
+        public UserLoginEntity()
         {
-            Username = username;
-            IsTeacher = isTeacher;
+            
         }
     }
 }

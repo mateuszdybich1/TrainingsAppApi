@@ -41,8 +41,11 @@ namespace TrainingsAppApi.Repositories
 
             if (user != null)
             {
-                UserLoginEntity userLoginEntity = new UserLoginEntity(user.Username,user.IsTeacher);
-                
+                UserLoginEntity userLoginEntity = new UserLoginEntity();
+                userLoginEntity.Username = user.Username.ToString();
+                userLoginEntity.IsTeacher = user.IsTeacher.ToString();
+
+
                 return userLoginEntity;
             }
             else

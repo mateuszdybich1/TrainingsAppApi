@@ -25,9 +25,15 @@ namespace TrainingsAppApi.Services
 
             string teacher = dto.CurrentUserUsername;
 
-
+            var user = _userRepository.GetUser(dto.CurrentUserUsername);
+            List<UserEntity> list = new List<UserEntity> { };
+            if (user.IsTeacher == "true")
+            {
+                list.Add(user);
+            }
+            
            
-            List<UserEntity> list = new List<UserEntity>();
+            
             CourseEntity course = new CourseEntity();
             course.Image= dto.Image;
             course.CourseName = dto.CourseName;
@@ -48,14 +54,17 @@ namespace TrainingsAppApi.Services
 
         }
 
-        public void SignToCourse(string courseName, string username)
+        public void SignToCourse(SignToCourseDto dto)
         {
 
             CourseValidation courseValidation = new CourseValidation(_courseRepository, _userRepository);
-            courseValidation.CanSignToCourse(courseName,username);
+            courseValidation.CanSignToCourse(dto.CourseName,dto.Username);
 
+            UserSignToCourseEntity userSignToCourse = new UserSignToCourseEntity();
+            userSignToCourse.Username = dto.Username;
+            userSignToCourse.CourseName = dto.CourseName;
 
-            _courseRepository.SignToCourse(courseName, username);
+            _courseRepository.SignToCourse(userSignToCourse);
         }
 
         public List<CourseEntity> GetUsersCourses(UsernameDto dto)
@@ -67,10 +76,11 @@ namespace TrainingsAppApi.Services
             return courses;
         }
 
-        public List<CourseEntity> GetAllCourses()
+        public List<CourseEntity> GetAllCourses(UsernameDto dto)
         {
-            
-            List<CourseEntity> courses = _courseRepository.GetAllCourses();
+            CourseValidation courseValidation = new CourseValidation(_courseRepository, _userRepository);
+            courseValidation.CanGetCourses(dto.username);
+            List<CourseEntity> courses = _courseRepository.GetAllCourses(dto.username);
             return courses;
         }
     }
