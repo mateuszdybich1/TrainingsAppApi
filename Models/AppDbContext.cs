@@ -26,8 +26,8 @@ namespace TrainingsAppApi
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseMySql("Server=localhost;Port=3306;Database=TRAININGSAPP;Uid=root;Password=WelcomOnCRC23;", 
-                ServerVersion.AutoDetect("Server=localhost;Port=3306;Database=TRAININGSAPP;Uid=root;Password=WelcomOnCRC23;"));
+            optionsBuilder.UseMySql("Server=db4free.net;Port=3306;Database=trainingsapp;Uid=matrix153;Password=abcd123!;", 
+                ServerVersion.AutoDetect("Server=db4free.net;Port=3306;Database=trainingsapp;Uid=matrix153;Password=abcd123!;"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
