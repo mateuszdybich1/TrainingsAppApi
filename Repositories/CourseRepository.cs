@@ -7,6 +7,7 @@ using TrainingsAppApi.Entities;
 using TrainingsAppApi.Models.Entities;
 using TrainingsAppApi.Validation.Exceptions;
 using System.Linq;
+using System.Security.Claims;
 
 namespace TrainingsAppApi.Repositories
 {
@@ -32,28 +33,43 @@ namespace TrainingsAppApi.Repositories
             return result;
         }
 
-        public List<CourseEntity> GetAllCourses()
+        public List<CourseEntity> GetAllCourses(string username)
         {
+            var user = _appDbContext.Users.FirstOrDefault(c => c.Username == username);
+            var courseEntity = _appDbContext.Courses.Where(e=>!e.Users.Contains(user)).ToList();
 
-            var result = (from currentCourse in _appDbContext.Courses
-                          select currentCourse).ToList<CourseEntity>();
-            return result;
+            if (courseEntity != null)
+            {
+               
+
+                if (courseEntity != null && courseEntity.Count == 0)
+                {
+                    throw new ValidationException("There is no new courses to register");
+                }
+                return courseEntity;
+
+            }
+            
+            else
+            {
+                throw new ValidationException("UNEXPECTED ERROR");
+            }
         }
 
         public List<CourseEntity> GetUsersCourses(string username)
         {
          
-           var user = _appDbContext.Users.Where(c => c.Username == username).SelectMany(c=>c.Courses).ToList();
+           var courses = _appDbContext.Users.Where(c => c.Username == username).SelectMany(c=>c.Courses).ToList();
 
 
-            if (user != null)
+            if (courses != null)
             {
 
-                if (user != null && user.Count == 0)
+                if (courses != null && courses.Count == 0)
                 {
                     throw new ValidationException("You do not have any courses");
                 }
-                return user;
+                return courses;
             }
             else
             {
@@ -62,24 +78,24 @@ namespace TrainingsAppApi.Repositories
    
         }
 
-        public void SignToCourse(string courseName, string username)
+        public void SignToCourse(UserSignToCourseEntity userSignToCourse)
         {
 
 
-            var course = _appDbContext.Courses.Include(c => c.Users).FirstOrDefault(c => c.CourseName == courseName);
-            
-
-            var user = _appDbContext.Users.Include(c => c.Courses).FirstOrDefault(c=>c.Username == username);
-
+            var course = _appDbContext.Courses.Include(e=>e.Users).FirstOrDefault(c => c.CourseName == userSignToCourse.CourseName);
+            var user = _appDbContext.Users.Include(e => e.Courses).FirstOrDefault(u => u.Username == userSignToCourse.Username);
             if (course!=null)
             {
-
-                if (course.Users.Any())
+                if (user.Courses.Contains(course))
                 {
-                    throw new ValidationException("You are already signed to this course");
+                    throw  new ValidationException("User already signed to course");
                 }
-                course.Users.Add(user);
+                
+                
+                user.Courses.Add(course);
+
                 _appDbContext.SaveChanges();
+                
             }
 
          

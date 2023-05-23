@@ -36,13 +36,17 @@ namespace TrainingsAppApi.Controllers
             return Ok();
         }
 
-        [HttpGet("getcourses")]
-        public IActionResult GetAllCourses()
+        [HttpPost("getcourses")]
+        public IActionResult GetAllCourses(UsernameDto dto)
         {
-            List<CourseEntity> list = _courseService.GetAllCourses();
-            
-       
-            return Ok(list);
+            try
+            {
+                return Ok(_courseService.GetAllCourses(dto));
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
@@ -64,11 +68,11 @@ namespace TrainingsAppApi.Controllers
 
 
         [HttpPost("signtocourse")]
-        public IActionResult SignToCourse(string courseName, string username)
+        public IActionResult SignToCourse(SignToCourseDto dto)
         {
             try
             {
-                _courseService.SignToCourse(courseName, username);
+                _courseService.SignToCourse(dto);
             }
             catch (ValidationException ex)
             {

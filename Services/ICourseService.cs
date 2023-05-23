@@ -5,10 +5,10 @@ namespace TrainingsAppApi.Services
 {
     public interface ICourseService
     {
-        List<CourseEntity> GetAllCourses();
+        List<CourseEntity> GetAllCourses(UsernameDto dto);
 
         List<CourseEntity> GetUsersCourses(UsernameDto dto);
-        void SignToCourse(string courseName,string username);
+        void SignToCourse(SignToCourseDto dto);
 
         void AddCourse(CourseDto dto);
     }
